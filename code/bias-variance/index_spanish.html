@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Compromiso entre Sesgo y Varianza</title>
+    <meta
+      name="description"
+      content="MLU-Explica: Explicación Visual del Compromiso entre Sesgo y Varianza."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      property="og:image"
+      content="https://mlu-explain.github.io/assets/ogimages/ogimage-bias-variance.png"
+    />
+
+    <meta property="og:title" content="Compromiso entre Sesgo y Varianza" />
+
+    <meta
+      property="og:description"
+      content="Aprende el compromiso entre modelos subajustados y sobreajustados, cómo se relaciona con el sesgo y la varianza, y explora ejemplos interactivos relacionados con LASSO y KNN."
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <link rel="icon" href="./assets/mlu_robot.png" />
+    <link rel="stylesheet" href="css/katex.min.css" />
+    <link rel="stylesheet" href="css/styles.scss" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-1FYW57GW3G"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-1FYW57GW3G");
+    </script>
+  </head>
+
+  <body>
+    <main>
+      <div id="intro-icon">
+        <a href="https://mlu-explain.github.io"
+          ><svg
+            width="50"
+            height="50"
+            viewBox="0 0 234 216"
+            fill="none"
+            xmlns="https://www.w3.org/2000/svg"
+          >
+            <!-- SVG content unchanged -->
+          </svg>
+          <h2 class="logo">MLU-expl<span id="ai">AI</span>n</h2>
+        </a>
+      </div>
+      <section id="intro">
+        <!-- MLU Robot Icon -->
+
+        <h1 id="intro__hed">
+          El Compromiso entre <span id="bias">Sesgo</span> y <span id="variance">Varianza</span>
+        </h1>
+        <h3 id="intro__date">
+          <a href="https://twitter.com/jdwlbr">Jared Wilber</a>
+          & Brent Werness, Enero 2021
+        </h3>
+        <p id="intro__dek">
+          Los errores de predicción pueden descomponerse en dos subcomponentes principales de interés: error por <span class="bolder">sesgo</span>, y error por <span class="bolder">varianza</span>. El compromiso entre la capacidad de un modelo para minimizar el sesgo y la varianza es fundamental para entrenar modelos de aprendizaje automático, por lo que vale la pena tomarse el tiempo para entender el concepto.
+        </p>
+      </section>
+
+      <!-- BEGIN SCROLLYTELLING SECTION -->
+      <section id="scrolly">
+        <figure id="scroll-figure">
+          <div id="scroll-viz"></div>
+          <div id="svg2"></div>
+        </figure>
+        <article>
+          <div class="step" data-step="1">
+            <p class="step-head"></p>
+
+            <p>
+              Usando nuestra imaginación más desbordante, podemos imaginar un conjunto de datos que consiste en características X y etiquetas Y, como a la izquierda. También imaginemos que nos gustaría generalizar esta relación a valores adicionales de X - que nos gustaría predecir valores futuros basados en lo que ya hemos visto antes.
+              <br /><br />
+              Con nuestra imaginación ahora sin duda agotada, podemos tomar un enfoque muy simple para modelar la relación entre X e Y simplemente dibujando una línea hacia la tendencia general de los datos.
+            </p>
+          </div>
+          <div class="step" data-step="2">
+            <p class="step-head">Un Modelo Simple</p>
+
+            <p>
+              Nuestro modelo simple no es el mejor para modelar la relación - claramente hay información en los datos que no está capturando.
+              <br /><br />
+              Mediremos el rendimiento de nuestro modelo mirando el <a href="https://en.wikipedia.org/wiki/Mean_squared_error">error cuadrático medio</a> de su salida y los valores verdaderos (mostrados en el diagrama de barras inferior). Nuestro modelo está cerca de algunos puntos de entrenamiento, pero en general definitivamente hay espacio para mejora. <br /><br />
+
+              El error en los datos de entrenamiento es importante para la afinación del modelo, pero lo que realmente nos importa es cómo se desempeña en datos que no hemos visto antes, llamados datos de prueba. Así que vamos a verificar eso también.
+            </p>
+          </div>
+          <div class="step" data-step="3">
+            <p class="step-head">Baja Complejidad y Subajuste</p>
+
+            <p>
+              Uh-oh, parece que nuestras sospechas anteriores eran correctas - nuestro modelo es basura. ¡El error de prueba es incluso más alto que el error de entrenamiento!
+              <br /><br />
+              En este caso, decimos que nuestro modelo está <span id="underfit-highlight">subajustado</span> a los datos: nuestro modelo es tan simple que no logra capturar adecuadamente las relaciones en los datos. El alto error de prueba es un resultado directo de la falta de complejidad de nuestro modelo. <br /><br />
+              <span id="underfit-def">Un modelo subajustado es aquel que es demasiado simple para capturar con precisión las relaciones entre sus características X y etiqueta Y.</span>
+            </p>
+          </div>
+
+          <div class="step" data-step="4">
+            <p class="step-head">Un Modelo Complejo</p>
+
+            <p>
+              Nuestro modelo anterior tuvo un mal desempeño porque era demasiado simple. Intentemos nuestra suerte con algo más complejo. De hecho, hagámoslo lo más complejo que podamos - entrenemos un modelo que prediga cada punto en nuestros datos de entrenamiento perfectamente.
+              <br /><br />
+              ¡Genial! Ahora nuestro error de entrenamiento es cero. Como dice el viejo dicho en Tennessee: Engáñame una vez - vergüenza para ti. Engáñame dos veces - eh... no puedes engañarme de nuevo ;).
+            </p>
+          </div>
+          <div class="step" data-step=" 5">
+            <p class="step-head">Alta Complejidad y Sobreajuste</p>
+
+            <p>
+              Espera un segundo... Aunque nuestro error de entrenamiento de nuestro modelo fue efectivamente cero, el error en nuestros datos de prueba es alto. ¿Qué pasa?
+              <br /><br />
+              Sin sorpresa, nuestro modelo es demasiado complicado. Decimos que <span id="overfit-highlight">sobreajusta</span> los datos. En lugar de aprender las verdaderas tendencias subyacentes a nuestro conjunto de datos, memorizó ruido y, como resultado, el modelo no es generalizable a conjuntos de datos más allá de sus datos de entrenamiento. <br /><br />
+              <span id="overfit-def">El sobreajuste se refiere al caso cuando un modelo es tan específico para los datos en los que fue entrenado que ya no es aplicable a diferentes conjuntos de datos.</span><br /><br />
+              En situaciones donde tu error de entrenamiento es bajo pero tu error de prueba es alto, probablemente has sobreajustado tu modelo.
+            </p>
+          </div>
+          <div class="step" data-step="6">
+            <p class="step-head">Descomposición del Error de Prueba</p>
+            <p>
+              Nuestro error de prueba puede venir como resultado de ambos, subajuste y sobreajuste de nuestros datos, pero ¿cómo se relacionan los dos entre sí?
+              <br /><br />
+              En el caso general, <span id="decomp-highlight">el error cuadrático medio puede descomponerse en tres componentes: error debido al sesgo, error debido a la varianza, y error debido al ruido.</span>
+              <br /><br />
+              <span class="katex-bv-text"></span>
+              <br /><br />
+              O, matemáticamente:
+              <br /><br />
+              <span class="katex-bv-equation"></span>
+              <br /><br />
+              No podemos hacer mucho sobre el término irreducible<span class="katex-noise"></span>, pero podemos hacer uso de la relación entre el sesgo y la varianza para obtener mejores predicciones.
+            </p>
+          </div>
+          <div class="step" data-step="7">
+            <p class="step-head">Sesgo</p>
+            <p>
+              <span id="bias-def">El sesgo representa la diferencia entre la predicción promedio y el valor verdadero</span>: <br /><br />
+              <span class="katex-bias"></span>
+              <br /><br />
+
+              El término <span class="katex-bias-inline"></span> es complicado. Se refiere a la predicción promedio después de que el modelo ha sido entrenado en varios conjuntos de datos independientes. Podemos pensar en el sesgo como la medición de un error <i>sistemático</i> en la predicción.
+              <br /><br />Estas diferentes realizaciones del modelo se muestran en el gráfico superior, mientras que la descomposición del error (para cada punto de datos) se muestra en el gráfico inferior. <br /><br />
+              Para modelos subajustados (de baja complejidad), la mayoría de nuestro error proviene del sesgo.
+            </p>
+          </div>
+
+          <div class="step" data-step="8">
+            <p class="step-head">Varianza</p>
+            <p>
+              Al igual que con el sesgo, la noción de varianza también se relaciona con diferentes realizaciones de nuestro modelo. Específicamente, <span id="variance-def">la varianza mide cuánto, en promedio, las predicciones varían para un punto de datos dado</span>: <br /><br />
+              <span class="katex-var"></span>
+              <br /><br />
+              Como puedes ver en el gráfico inferior, las predicciones de modelos sobreajustados (de alta complejidad) muestran mucho más error por varianza que por sesgo. Es fácil imaginar que cualquier punto de datos no visto será predicho con alto error.
+            </p>
+          </div>
+          <div class="step" data-step="9">
+            <p class="step-head">Encontrando un Equilibrio</p>
+            <p>
+              Para obtener nuestros mejores resultados, debemos trabajar para encontrar un punto medio entre un modelo que es tan básico que no logra aprender patrones significativos en nuestros datos, y uno que es tan complejo que no logra generalizar a datos no vistos.
+              <br /><br />
+              En otras palabras, no queremos un modelo subajustado, pero tampoco queremos un modelo sobreajustado. Queremos algo intermedio - algo con suficiente complejidad para aprender los patrones generalizables en nuestros datos.
+              <br /><br />
+              <span id="balance-def">Al intercambiar algo de sesgo por varianza (es decir, aumentando la complejidad de nuestro modelo), y sin excedernos, podemos encontrar un modelo equilibrado para nuestro conjunto de datos</span>.
+            </p>
+          </div>
+          <div class="step" data-step="10">
+            <p class="step-head">A Través de las Complejidades</p>
+            <p>
+              Acabamos de mostrar, en diferentes niveles de complejidad, una muestra de realizaciones del modelo junto con sus correspondientes descomposiciones del error de predicción.
+              <br /><br />
+              Dirijamos nuestro enfoque a las descomposiciones del error a través de las complejidades del modelo.
+              <br /><br />
+              Para cada nivel de complejidad, agregaremos la descomposición del error a través de todos los puntos de datos, y graficaremos los errores agregados en su nivel de complejidad.
+              <br /><br />
+              Esta agregación aplicada a nuestro modelo equilibrado (es decir, el nivel medio de complejidad) se muestra a la izquierda.
+            </p>
+          </div>
+          <div class="step" data-step="11">
+            <p class="step-head">El Compromiso entre Sesgo y Varianza</p>
+            <p>
+              Repitiendo esta agregación a través de nuestro rango de complejidades del modelo, podemos ver la relación entre el sesgo y la varianza en los errores de predicción se manifiesta como una curva en forma de U que detalla el compromiso entre sesgo y varianza.
+              <br /><br />
+              Cuando un modelo es demasiado simple (es decir, valores pequeños a lo largo del eje x), ignora información útil, y el error se compone principalmente de ese proveniente del sesgo.
+              <br /><br />
+              Cuando un modelo es demasiado complejo (es decir, valores grandes a lo largo del eje x), memoriza patrones no generales, y el error se compone principalmente de ese proveniente de la varianza.
+              <br /><br />
+              <span id="conclusion">El modelo ideal busca minimizar tanto el sesgo como la varianza. Se encuentra en el punto óptimo - ni demasiado simple, ni demasiado complejo. Lograr tal equilibrio dará como resultado el error mínimo.</span>
+            </p>
+          </div>
+        </article>
+      </section>
+      <!-- END SCROLLYTELLING -->
+      <div class="model-text">
+        <br /><br />
+        <p>
+          Muchos modelos tienen parámetros que cambian los modelos finales aprendidos, llamados hiperparámetros. Veamos cómo estos hiperparámetros pueden ser usados para controlar el compromiso entre sesgo y varianza con dos ejemplos: Regresión LOESS y K-Vecinos Más Cercanos.
+        </p>
+        <br />
+      </div>
+      <section class="models" class="section-offset">
+        <hr />
+
+        <!-- LOESS -->
+        <div class="model-text-wrapper">
+          <h1 class="model-header">Regresión LOESS</h1>
+          <p class="model-text">
+            La regresión LOESS (LOcally Estimated Scatterplot Smoothing) es una técnica no paramétrica para ajustar una superficie suave entre un resultado y algunas variables predictoras. El ajuste de la curva en un punto dado está ponderado por datos cercanos. Esta ponderación está gobernada por un hiperparámetro de suavizado, que representa la proporción de datos vecinos utilizados para calcular cada ajuste local.
+            <br /><br />
+            Así, el compromiso entre sesgo y varianza para LOESS puede ser controlado mediante el parámetro de suavidad. Cuando la suavidad es pequeña, la cantidad de datos que consideramos es insuficiente para un ajuste preciso, resultando en una gran varianza. Sin embargo, si hacemos la suavidad demasiado alta (es decir, sobre-suavizada), intercambiamos información local por global, resultando en un gran sesgo.
+            <br /><br />
+            Abajo se ajusta una curva LOESS a dos variables. Aleatoriza los datos de entrenamiento para observar el efecto que diferentes realizaciones del modelo tienen en la varianza, y controla la suavidad para observar el compromiso entre subajuste y sobreajuste (y así, sesgo y varianza).
+          </p>
+        </div>
+
+        <div class="model-controls">
+          <button class="data-button" id="button-loess">
+            Aleatorizar Datos de Entrenamiento
+          </button>
+          <div id="slider-container-loess"></div>
+        </div>
+        <div
+          class="model-wrapper"
+          style="text-align: center; justify-content: center"
+        >
+          <div id="fit-container-loess"></div>
+          <div id="predict-container-loess"></div>
+        </div>
+        <!-- </section> -->
+        <!-- END LOESS -->
+        <hr />
+      </section>
+      <section class="models" class="section-offset">
+        <!-- KNN -->
+        <div class="model-text-wrapper">
+          <h1 class="model-header">K-Vecinos Más Cercanos</h1>
+          <p class="model-text">
+            La clasificación de K-Vecinos Más Cercanos (KNN) es una técnica simple para asignar la membresía de clase a un punto de datos con algún voto de mayoría de sus K-vecinos más cercanos. Por ejemplo, cuando K = 1, el punto de datos simplemente se asigna a la clase de ese único vecino más cercano. Si K = 69, el punto de datos se asigna a la clase mayoritaria de sus 69-vecinos más cercanos.
+            <br /><br />
+            Podemos observar el compromiso entre sesgo y varianza en KNN directamente jugando con el hiperparámetro K. Cuando K es pequeño, solo se considera un pequeño número de vecinos durante el voto de clasificación. Las islas resultantes y los límites irregulares son resultado de alta varianza, ya que las clasificaciones son determinadas por vecindarios muy localizados. Para valores grandes de K, vemos regiones muy suavizadas que se desvían bruscamente del verdadero límite de decisión - ve demasiado alto y simplemente obtendrás un voto mayoritario. Esto es alto sesgo. Por otro lado, para valores medios de K, vemos suavizar las regiones que siguen a lo largo del verdadero límite de decisión.
+            <br /><br />
+            ¡Explora el compromiso por ti mismo abajo! La trama a la izquierda muestra los datos de entrenamiento. La trama a la derecha muestra las regiones de decisión basadas en el valor actual de K. Los colores más profundos reflejan más confianza en la clasificación. Pasa el cursor sobre un punto para ver su clasificación a la derecha, y los K-vecinos más cercanos utilizados para consideración a la izquierda.
+          </p>
+        </div>
+        <div class="model-controls">
+          <button class="data-button" id="button-knn">Aleatorizar Datos</button>
+          <div id="slider-container"></div>
+        </div>
+        <div
+          class="model-wrapper"
+          style="text-align: center; justify-content: center"
+        >
+          <div id="fit-container"></div>
+          <div id="predict-container"></div>
+        </div>
+        <!-- End KNN --><!-- KNN -->
+      </section>
+      <hr />
+      <section class="section-offset">
+        <div style="text-align: center">
+          <h1 class="model-header">¿Qué pasa con el Descenso Doble?</h1>
+          <p class="model-text">
+            Puede que hayas oído hablar del fenómeno, conocido como Descenso Doble, en el cual la clásica curva en forma de U del compromiso entre sesgo y varianza (vista arriba y en libros de texto en todas partes) es seguida por una segunda inmersión (mostrada abajo). Tal fenómeno debe anular el compromiso entre sesgo y varianza que acabamos de explicar tanto tiempo, ¿verdad?
+          </p>
+          <br />
+          <div id="dd-container"></div>
+          <br />
+          <p class="model-text">
+            ¡No te preocupes, querido lector! Como detallaremos en nuestra próxima serie de artículos, el Descenso Doble en realidad apoya la noción clásica del compromiso entre sesgo y varianza. ¡Mantente sintonizado para aprender más!
+            <br /><br />
+          </p>
+        </div>
+      </section>
+      <hr />
+
+      <!-- CONCLUSION -->
+      <section>
+        <div style="text-align: center">
+          <h1 class="model-header">Finalmente Terminó</h1>
+          <p class="model-text">
+            <i>Exhala profundamente.</i> Finalmente ha terminado. ¡Gracias por leer! Esperamos que el artículo haya sido perspicaz sin importar en qué punto te encuentres en tu viaje de aprendizaje automático, y que hayas comprendido mejor el compromiso entre sesgo y varianza. <br /><br />
+            Para hacer las cosas compactas, omitimos algunos temas relevantes (como la regularización), pero mantente atento a más artículos de MLU-Explica, donde planeamos explicar esos y otros temas relacionados con el aprendizaje automático.
+            <br /><br />
+            Para aprender más sobre aprendizaje automático, consulta nuestros <a href="https://aws.amazon.com/machine-learning/mlu/">cursos autodirigidos</a>, nuestros <a href="https://www.youtube.com/channel/UC12LqyqTQYbXatYS9AA7Nuw">videos de youtube</a>, y el libro de texto <a href="https://d2l.ai/">Dive into Deep Learning</a>. Si tienes algún comentario/idea/etc. relacionado con los artículos de MLU-Explica, no dudes en <a href="https://twitter.com/jdwlbr">contactarnos directamente</a>. El código está disponible <a href="https://github.com/aws-samples/aws-mlu-explain">aquí</a>.
+          </p>
+        </div>
+      </section>
+      <hr />
+
+      <section id="outro">
+        <br /><br />
+        <h1 class="model-header">Referencias + Código Abierto</h1>
+        <p class="model-text">
+          Este artículo es producto de los siguientes recursos + las increíbles personas que los hicieron (& contribuyeron a ellos):
+        </p>
+        <!-- References unchanged -->
+        <br /><br />
+      </section>
+    </main>
+    <script></script>
+
+    <!-- <div class='debug'></div> -->
+    <script src="js/index.js"></script>
+    <script src="js/katexCalls.js"></script>
+  </body>
+</html>
