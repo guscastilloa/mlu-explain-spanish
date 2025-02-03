@@ -14775,7 +14775,10 @@ parcelRequire = function(e, r, t, n) {
                     BOTTOM: 40,
                     LEFT: 40,
                     RIGHT: 9
-                }, this.WIDTH = .8 * this.chartDims.width, this.HEIGHT = .36 * window.innerHeight, this.svgMain = (0, t.select)("#svg2").append("svg").attr("id", "errorBarSvg").attr("width", this.WIDTH + this.MARGIN.LEFT + this.MARGIN.RIGHT).attr("height", this.HEIGHT + this.MARGIN.TOP + this.MARGIN.BOTTOM), this.svg = this.svgMain.append("g").attr("id", "errorchart-g").attr("transform", "translate(".concat(this.MARGIN.LEFT, ", ").concat(this.MARGIN.TOP, ")")), this.svgMain.append("defs").append("marker").attr("id", "arrowhead-right").attr("refX", 5).attr("refY", 4.7).attr("markerWidth", 16).attr("markerHeight", 13).append("path").attr("d", "M 0 0 L 5 5 L 0 10").attr("stroke", "black").attr("stroke-width", 2).attr("fill", "none"), this.svgMain.append("defs").append("marker").attr("id", "arrowhead-up").attr("refX", 5).attr("refY", 4.7).attr("markerWidth", 16).attr("markerHeight", 23).append("path").attr("d", "M 10 10 L 5 5 L 0 10").attr("stroke", "black").attr("stroke-width", 2).attr("fill", "none"), this.colorScale = (0, e.scaleOrdinal)().domain(["Train", "Test"]).range([n.trainColorBar, n.testColorBar]), this.xScale = (0, e.scaleLinear)().domain([0, .42]).range([0, this.WIDTH]), this.xAxisGroup = this.svg.append("g").attr("class", "axis").attr("id", "error-x-axis").attr("transform", "translate(0, ".concat(this.HEIGHT, ")")), this.yScale = (0, e.scaleBand)().range([0, this.HEIGHT]).padding(.1), this.yAxisGroup = this.svg.append("g").attr("class", "axis").attr("id", "error-y-axis")
+                }, this.WIDTH = .8 * this.chartDims.width, this.HEIGHT = .36 * window.innerHeight, this.svgMain = (0, t.select)("#svg2").append("svg").attr("id", "errorBarSvg").attr("width", this.WIDTH + this.MARGIN.LEFT + this.MARGIN.RIGHT).attr("height", this.HEIGHT + this.MARGIN.TOP + this.MARGIN.BOTTOM), this.svg = this.svgMain.append("g").attr("id", "errorchart-g").attr("transform", "translate(".concat(this.MARGIN.LEFT, ", ").concat(this.MARGIN.TOP, ")")), this.svgMain.append("defs").append("marker").attr("id", "arrowhead-right").attr("refX", 5).attr("refY", 4.7).attr("markerWidth", 16).attr("markerHeight", 13).append("path").attr("d", "M 0 0 L 5 5 L 0 10").attr("stroke", "black").attr("stroke-width", 2).attr("fill", "none"), this.svgMain.append("defs").append("marker").attr("id", "arrowhead-up").attr("refX", 5).attr("refY", 4.7).attr("markerWidth", 16).attr("markerHeight", 23).append("path").attr("d", "M 10 10 L 5 5 L 0 10").attr("stroke", "black").attr("stroke-width", 2).attr("fill", "none"), this.colorScale = (0, e.scaleOrdinal)()
+                // checkpoint
+                .domain(["Entrenamiento", "Prueba"]).
+                range([n.trainColorBar, n.testColorBar]), this.xScale = (0, e.scaleLinear)().domain([0, .42]).range([0, this.WIDTH]), this.xAxisGroup = this.svg.append("g").attr("class", "axis").attr("id", "error-x-axis").attr("transform", "translate(0, ".concat(this.HEIGHT, ")")), this.yScale = (0, e.scaleBand)().range([0, this.HEIGHT]).padding(.1), this.yAxisGroup = this.svg.append("g").attr("class", "axis").attr("id", "error-y-axis")
             }
             return d(h, [{
                 key: "drawErrorBase",
@@ -14888,7 +14891,7 @@ parcelRequire = function(e, r, t, n) {
                         h = (0, o.max)(i, function(t) {
                             return +t.error
                         });
-                    this.xScale.domain([0, h]), this.xAxisGroup.transition(l).call((0, r.axisBottom)(this.xScale).tickSizeOuter(0).ticks(4)), this.yScale.domain(["Test"]), this.yAxisGroup.transition(l).call((0, r.axisLeft)(this.yScale).tickSizeOuter(0)), this.rects = this.svg.selectAll("rect.errorBar").data(i, function(t) {
+                    this.xScale.domain([0, h]), this.xAxisGroup.transition(l).call((0, r.axisBottom)(this.xScale).tickSizeOuter(0).ticks(4)), this.yScale.domain(["Prueba"]), this.yAxisGroup.transition(l).call((0, r.axisLeft)(this.yScale).tickSizeOuter(0)), this.rects = this.svg.selectAll("rect.errorBar").data(i, function(t) {
                         return t.error
                     }), this.rects.exit().transition(l).attr("height", 0).attr("y", this.HEIGHT).remove(), this.rects.transition(l).attr("x", function(t) {
                         return n.xScale(0)
@@ -14897,20 +14900,20 @@ parcelRequire = function(e, r, t, n) {
                     }).attr("width", function(t) {
                         return n.xScale(h)
                     }).attr("height", this.yScale.bandwidth()).attr("id", "decomposition").style("opacity", 1), this.hideAxes(), this.decomp = [{
-                        name: "Test",
-                        error: "Bias2",
+                        name: "Prueba",
+                        error: "Sesgo2",
                         value: .33 * h
                     }, {
-                        name: "Test",
-                        error: "Variance",
+                        name: "Prueba",
+                        error: "Varianza",
                         value: .33 * h
                     }, {
-                        name: "Test",
-                        error: "Noise",
+                        name: "Prueba",
+                        error: "Ruido",
                         value: .33 * h
                     }], this.biasMap = function(t) {
-                        return "Bias2" === t ? "Bias²" : t
-                    }, this.decompAxis = (0, e.scaleBand)().range([0, this.xScale(h)]).padding(0).domain(["Bias2", "Variance", "Noise"]), this.biasX = s.WIDTH / 10 - this.decompAxis("Bias2") + this.xScale(.33 * h) / 2;
+                        return "Sesgo2" === t ? "Sesgo²" : t
+                    }, this.decompAxis = (0, e.scaleBand)().range([0, this.xScale(h)]).padding(0).domain(["Sesgo2", "Varianza", "Ruido"]), this.biasX = s.WIDTH / 10 - this.decompAxis("Sesgo2") + this.xScale(.33 * h) / 2;
                     var d = (0, e.scaleOrdinal)().domain(this.decomp, function(t) {
                         return t.error
                     }).range(["coral", "skyblue", "teal"]);
@@ -14958,7 +14961,7 @@ parcelRequire = function(e, r, t, n) {
                         return t.yScale.bandwidth() / 2 + t.MARGIN.TOP
                     }).attr("dx", function(r) {
                         return t.xScale(+r.value) / 2
-                    }), this.decompGs.transition().duration(1e3).attr("transform", "translate(0,0)").selectAll(".decomp-text").attr("text-anchor", "middle"), this.hideAxes(), this.yScale.domain(["Train", "Test"]), this.yAxisGroup.call((0, r.axisLeft)(this.yScale).tickSizeOuter(0)).style("opacity", 1)
+                    }), this.decompGs.transition().duration(1e3).attr("transform", "translate(0,0)").selectAll(".decomp-text").attr("text-anchor", "middle"), this.hideAxes(), this.yScale.domain(["Entrenamiento", "Prueba"]), this.yAxisGroup.call((0, r.axisLeft)(this.yScale).tickSizeOuter(0)).style("opacity", 1)
                 }
             }, {
                 key: "hideAxes",
@@ -14973,7 +14976,7 @@ parcelRequire = function(e, r, t, n) {
                         i = window.innerWidth <= 600 ? 4 : 8,
                         n = window.innerWidth <= 600 ? 4 : 8,
                         s = window.innerWidth <= 600 ? 1.5 * i : 2 * i;
-                    this.yScale.domain(["Test"]), (0, t.selectAll)("rect.stacked").style("opacity", .7), (0, t.selectAll)(".decomp-text").style("opacity", 1), (0, t.selectAll)("rect.stacked").transition().attr("x", function(t) {
+                    this.yScale.domain(["Prueba"]), (0, t.selectAll)("rect.stacked").style("opacity", .7), (0, t.selectAll)(".decomp-text").style("opacity", 1), (0, t.selectAll)("rect.stacked").transition().attr("x", function(t) {
                         return r.textBox[t.error].x - i
                     }).attr("y", function(t) {
                         return r.textBox[t.error].y - n
@@ -15044,15 +15047,61 @@ parcelRequire = function(e, r, t, n) {
             }, {
                 key: "repositionSvgNew",
                 value: function() {
-                    var e = (0, a.transition)().duration(1500),
+                    var e = (0, a.transition)()
+                        .duration(1500),
                         i = .45 * window.innerHeight + this.MARGIN.BOTTOM + this.MARGIN.TOP;
-                    (0, t.select)("#scatter-svg").transition(e).attr("height", 75).style("opacity", 0), this.xAxisGroup.transition(e).attr("transform", "translate(0, ".concat(i - this.MARGIN.TOP - this.MARGIN.BOTTOM, ")")), this.svg.select("#error-x-axis").selectAll(".tick").style("opacity", 0), this.svg.select("#error-x-axis path.domain").attr("marker-end", "url(#arrowhead-right)"), this.svg.append("text").attr("id", "error-x-text").attr("x", this.WIDTH / 2).attr("y", i - this.MARGIN.TOP - this.MARGIN.BOTTOM / 2).text("Model Complexity").style("text-anchor", "middle").style("font-family", "AmazonEmberDisplayLight"), this.yScaleError.domain([0, 1]).range([i - this.MARGIN.TOP - this.MARGIN.BOTTOM, 0]), this.yAxisGroup.transition(e).call((0, r.axisLeft)(this.yScaleError).tickSizeOuter(0).ticks(4)), this.svg.select("#error-y-axis").selectAll(".tick").style("opacity", 0), this.svg.select("#error-y-axis path.domain").attr("marker-end", "url(#arrowhead-up)"), this.svg.append("text").attr("transform", "rotate(-90)").attr("id", "error-y-text").attr("y", 0 - .3 * this.MARGIN.LEFT).attr("x", 0 - i / 2 + this.MARGIN.TOP).text("Test Error").style("text-anchor", "middle").style("font-family", "AmazonEmberDisplayLight"), this.svgMain.transition(e).attr("height", i)
+                    (0, t.select)("#scatter-svg")
+                    .transition(e)
+                        .attr("height", 75)
+                        .style("opacity", 0), this.xAxisGroup.transition(e)
+                        .attr("transform", "translate(0, ".concat(i - this.MARGIN.TOP - this.MARGIN.BOTTOM, ")")), this.svg.select("#error-x-axis")
+                        .selectAll(".tick")
+                        .style("opacity", 0), this.svg.select("#error-x-axis path.domain")
+                        .attr("marker-end", "url(#arrowhead-right)"), this.svg.append("text")
+                        .attr("id", "error-x-text")
+                        .attr("x", this.WIDTH / 2)
+                        .attr("y", i - this.MARGIN.TOP - this.MARGIN.BOTTOM / 2)
+                        .text("Complejidad del Modelo")
+                        .style("text-anchor", "middle")
+                        .style("font-family", "AmazonEmberDisplayLight"), this.yScaleError.domain([0, 1])
+                        .range([i - this.MARGIN.TOP - this.MARGIN.BOTTOM, 0]), this.yAxisGroup.transition(e)
+                        .call((0, r.axisLeft)(this.yScaleError)
+                            .tickSizeOuter(0)
+                            .ticks(4)), this.svg.select("#error-y-axis")
+                        .selectAll(".tick")
+                        .style("opacity", 0), this.svg.select("#error-y-axis path.domain")
+                        .attr("marker-end", "url(#arrowhead-up)"), this.svg.append("text")
+                        .attr("transform", "rotate(-90)")
+                        .attr("id", "error-y-text")
+                        .attr("y", 0 - .3 * this.MARGIN.LEFT)
+                        .attr("x", 0 - i / 2 + this.MARGIN.TOP)
+                        .text("Error de Prueba")
+                        .style("text-anchor", "middle")
+                        .style("font-family", "AmazonEmberDisplayLight"), this.svgMain.transition(e)
+                        .attr("height", i)
                 }
             }, {
                 key: "upPositionSvg",
                 value: function() {
                     var e = (0, a.transition)();
-                    (0, t.select)("#scatter-svg").transition(e).attr("height", .4 * window.innerHeight + 15 + 40).style("opacity", 1), this.yScaleError.domain([0, 1]).range([this.HEIGHT, 0]), this.yAxisGroup.transition(e).call((0, r.axisLeft)(this.yScaleError).ticks(4).tickSizeOuter(0)), this.xAxisGroup.transition(e).attr("transform", "translate(0, ".concat(this.HEIGHT, ")")), this.svg.select("#error-x-axis").selectAll(".tick").style("opacity", 1), this.svg.select("#error-y-axis").selectAll(".tick").style("opacity", 1), this.svg.select("#error-x-axis path.domain").attr("marker-end", "null"), this.svg.select("#error-y-axis path.domain").attr("marker-end", "null"), this.svg.select("#error-x-text").remove(), this.svg.select("#error-y-text").remove(), this.svgMain.transition(e).attr("height", this.HEIGHT + this.MARGIN.TOP + this.MARGIN.BOTTOM)
+                    (0, t.select)("#scatter-svg")
+                    .transition(e)
+                        .attr("height", .4 * window.innerHeight + 15 + 40)
+                        .style("opacity", 1), this.yScaleError.domain([0, 1])
+                        .range([this.HEIGHT, 0]), this.yAxisGroup.transition(e)
+                        .call((0, r.axisLeft)(this.yScaleError)
+                            .ticks(4)
+                            .tickSizeOuter(0)), this.xAxisGroup.transition(e)
+                        .attr("transform", "translate(0, ".concat(this.HEIGHT, ")")), this.svg.select("#error-x-axis")
+                        .selectAll(".tick")
+                        .style("opacity", 1), this.svg.select("#error-y-axis")
+                        .selectAll(".tick")
+                        .style("opacity", 1), this.svg.select("#error-x-axis path.domain")
+                        .attr("marker-end", "null"), this.svg.select("#error-y-axis path.domain")
+                        .attr("marker-end", "null"), this.svg.select("#error-x-text")
+                        .remove(), this.svg.select("#error-y-text")
+                        .remove(), this.svgMain.transition(e)
+                        .attr("height", this.HEIGHT + this.MARGIN.TOP + this.MARGIN.BOTTOM)
                 }
             }]), h
         }();
@@ -16338,7 +16387,7 @@ parcelRequire = function(e, r, t, n) {
                         }),
                         c = (0, e.meanSquaredError)(u, d);
                     this.underfitError = [{
-                        name: "Train",
+                        name: "Entrenamiento",
                         error: c
                     }], this.errorBar.plotBars(this.underfitError), this.errorBar.addTitle("Error Cuadrático Medio")
                 }
@@ -16380,7 +16429,7 @@ parcelRequire = function(e, r, t, n) {
                         }),
                         d = (0, e.meanSquaredError)(l, u);
                     this.underfitError.push({
-                        name: "Test",
+                        name: "Prueba",
                         error: d
                     }), this.errorBar.plotBars(this.underfitError)
                 }
@@ -16431,7 +16480,7 @@ parcelRequire = function(e, r, t, n) {
                         }),
                         p = ((0, e.meanSquaredError)(d, f), (0, e.meanSquaredError)(l, u));
                     this.overfitError.push({
-                        name: "Test",
+                        name: "Prueba",
                         error: p
                     }), this.errorBar.plotBars(this.overfitError)
                 }
@@ -16439,7 +16488,7 @@ parcelRequire = function(e, r, t, n) {
                 key: "drawBarsTrainOverfit",
                 value: function() {
                     this.overfitError = [{
-                        name: "Train",
+                        name: "Entrenamiento",
                         error: .001
                     }], this.errorBar.plotBars(this.overfitError)
                 }
@@ -16447,15 +16496,15 @@ parcelRequire = function(e, r, t, n) {
                 key: "plotTestBar",
                 value: function() {
                     var t = this.overfitError.filter(function(t) {
-                        return "Test" === t.name
+                        return "Prueba" === t.name
                     });
                     t.push({
-                        name: "Test",
+                        name: "Prueba",
                         error: 5.05
                     }), t.push({
-                        name: "Test",
+                        name: "Prueba",
                         error: 5.1
-                    }), this.errorBar.plotDecompositionBar(t), this.errorBar.addTitle("Test Error Decomposition")
+                    }), this.errorBar.plotDecompositionBar(t), this.errorBar.addTitle("Descomposición de Error de Prueba")
                 }
             }, {
                 key: "modelRealization",
@@ -16605,7 +16654,7 @@ parcelRequire = function(e, r, t, n) {
             }, {
                 key: "transitionUp5",
                 value: function() {
-                    this.removeRealizationLines(), (0, n.selectAll)(".error-line-bottom").remove(), (0, n.select)("rect.stacked-error").remove(), (0, n.select)("#error-text").remove(), (0, n.selectAll)(".error-symbol").remove(), this.errorBar.addTitle("Test Error Decomposition"), this.errorBar.reverseDecomposition()
+                    this.removeRealizationLines(), (0, n.selectAll)(".error-line-bottom").remove(), (0, n.select)("rect.stacked-error").remove(), (0, n.select)("#error-text").remove(), (0, n.selectAll)(".error-symbol").remove(), this.errorBar.addTitle("Descomposición de Error de Prueba"), this.errorBar.reverseDecomposition()
                 }
             }, {
                 key: "addTitle",
@@ -18699,10 +18748,10 @@ parcelRequire = function(e, r, t, n) {
                         }),
                         l = (0, o.meanSquaredError)(a, i),
                         c = [{
-                            name: "Train",
+                            name: "Entrenamiento",
                             error: l
                         }, {
-                            name: "Test",
+                            name: "Prueba",
                             error: (0, o.meanSquaredError)(s, i)
                         }];
                     this.plotBars(c), l > .4 && this.addBarWarning()
@@ -18717,11 +18766,31 @@ parcelRequire = function(e, r, t, n) {
                 key: "drawBars",
                 value: function() {
                     var t = this;
-                    this.barG = this.initChartSvg(this.barContainer), this.xScaleError = (0, r.scaleLinear)().domain([0, .25]).range([0, this.WIDTH]), this.yScaleError = (0, r.scaleBand)().domain(["Train", "Test"]).range([0, this.HEIGHT]).padding(.1), this.loessBarColor = (0, r.scaleOrdinal)().domain(["Train", "Test"]).range(["#e57873", "#94CAE0"]), this.xAxisGeneratorError = (0, e.axisBottom)(this.xScaleError).tickSizeOuter(0).ticks(4), this.yAxisGeneratorError = (0, e.axisLeft)(this.yScaleError).tickSizeOuter(0).ticks(4), this.xAxisError = this.barG.append("g").attr("class", "axis").attr("id", "bar-x-axis").call(this.xAxisGeneratorError).attr("transform", "translate(0, ".concat(this.HEIGHT, ")")), this.yAxis = this.barG.append("g").attr("class", "axis").attr("id", "bar-y-axis").call(this.yAxisGeneratorError), this.lineGenerator = (0, a.line)().x(function(e) {
-                        return t.xScale(e[0])
-                    }).y(function(e) {
-                        return t.yScale(e[1])
-                    })
+                    this.barG = this.initChartSvg(this.barContainer), this.xScaleError = (0, r.scaleLinear)()
+                        .domain([0, .25])
+                        .range([0, this.WIDTH]), this.yScaleError = (0, r.scaleBand)()
+                        .domain(["Train", "Test"])
+                        .range([0, this.HEIGHT])
+                        .padding(.1), this.loessBarColor = (0, r.scaleOrdinal)()
+                        .domain(["Train", "Test"])
+                        .range(["#e57873", "#94CAE0"]), this.xAxisGeneratorError = (0, e.axisBottom)(this.xScaleError)
+                        .tickSizeOuter(0)
+                        .ticks(4), this.yAxisGeneratorError = (0, e.axisLeft)(this.yScaleError)
+                        .tickSizeOuter(0)
+                        .ticks(4), this.xAxisError = this.barG.append("g")
+                        .attr("class", "axis")
+                        .attr("id", "bar-x-axis")
+                        .call(this.xAxisGeneratorError)
+                        .attr("transform", "translate(0, ".concat(this.HEIGHT, ")")), this.yAxis = this.barG.append("g")
+                        .attr("class", "axis")
+                        .attr("id", "bar-y-axis")
+                        .call(this.yAxisGeneratorError), this.lineGenerator = (0, a.line)()
+                        .x(function(e) {
+                            return t.xScale(e[0])
+                        })
+                        .y(function(e) {
+                            return t.yScale(e[1])
+                        })
                 }
             }, {
                 key: "resizeCharts",
@@ -18777,7 +18846,7 @@ parcelRequire = function(e, r, t, n) {
                             return t.getBBox().width
                         },
                         r = this.loessG.append("g").attr("class", "loess-legend").attr("transform", "translate(0,0)"),
-                        a = r.selectAll("g").data(["Train Data", "Test Data"]).enter().append("g");
+                        a = r.selectAll("g").data(["Datos de Entrenamiento", "Datos de Prueba"]).enter().append("g");
                     a.append("circle").attr("r", 4.5).attr("id", function(t, e) {
                         return e % 2 == 0 ? "loess-train" : "loess-test"
                     }).attr("cy", 5).attr("cx", 1).attr("stroke-width", 0);
@@ -18868,7 +18937,7 @@ parcelRequire = function(e, r, t, n) {
                     var t = (0, a.axisBottom)(this.xScale).tickSizeOuter(0).ticks(4),
                         r = (0, a.axisLeft)(this.yScale).tickSizeOuter(0).ticks(4);
                     this.ddG.append("g").attr("class", "axis").attr("id", "dd-x-axis").call(t).attr("transform", "translate(0, ".concat(this.HEIGHT, ")")), this.ddG.append("g").attr("class", "axis").attr("id", "dd-y-axis").call(r);
-                    this.svg.append("text").attr("class", "dd-axis-text").attr("x", this.WIDTH / 2 + this.MARGIN.RIGHT).attr("y", this.HEIGHT + this.MARGIN.TOP + this.MARGIN.BOTTOM / 2).text("Model Complexity").attr("text-anchor", "middle"), this.svg.append("text").attr("class", "dd-axis-text").attr("y", this.MARGIN.LEFT / 1.4).attr("x", -(this.HEIGHT / 2 + this.MARGIN.TOP)).attr("dy", ".05em").attr("transform", "rotate(-90)").attr("text-anchor", "middle").text("Error"), this.svg.append("defs").append("marker").attr("id", "arrowhead-right").attr("refX", 5).attr("refY", 4.7).attr("markerWidth", 16).attr("markerHeight", 13).append("path").attr("d", "M 0 0 L 5 5 L 0 10").attr("stroke", "black").attr("stroke-width", 2).attr("fill", "none"), this.svg.select("#dd-x-axis path.domain").attr("marker-end", "url(#arrowhead-right)"), this.svg.append("defs").append("marker").attr("id", "arrowhead-up").attr("refX", 5).attr("refY", 4.7).attr("markerWidth", 16).attr("markerHeight", 23).append("path").attr("d", "M 10 10 L 5 5 L 0 10").attr("stroke", "black").attr("stroke-width", 2).attr("fill", "none"), this.svg.select("#dd-y-axis path.domain").attr("marker-end", "url(#arrowhead-up)")
+                    this.svg.append("text").attr("class", "dd-axis-text").attr("x", this.WIDTH / 2 + this.MARGIN.RIGHT).attr("y", this.HEIGHT + this.MARGIN.TOP + this.MARGIN.BOTTOM / 2).text("Complejidad del Modelo").attr("text-anchor", "middle"), this.svg.append("text").attr("class", "dd-axis-text").attr("y", this.MARGIN.LEFT / 1.4).attr("x", -(this.HEIGHT / 2 + this.MARGIN.TOP)).attr("dy", ".05em").attr("transform", "rotate(-90)").attr("text-anchor", "middle").text("Error"), this.svg.append("defs").append("marker").attr("id", "arrowhead-right").attr("refX", 5).attr("refY", 4.7).attr("markerWidth", 16).attr("markerHeight", 13).append("path").attr("d", "M 0 0 L 5 5 L 0 10").attr("stroke", "black").attr("stroke-width", 2).attr("fill", "none"), this.svg.select("#dd-x-axis path.domain").attr("marker-end", "url(#arrowhead-right)"), this.svg.append("defs").append("marker").attr("id", "arrowhead-up").attr("refX", 5).attr("refY", 4.7).attr("markerWidth", 16).attr("markerHeight", 23).append("path").attr("d", "M 10 10 L 5 5 L 0 10").attr("stroke", "black").attr("stroke-width", 2).attr("fill", "none"), this.svg.select("#dd-y-axis path.domain").attr("marker-end", "url(#arrowhead-up)")
                 }
             }, {
                 key: "drawDoubleDescentLines",
@@ -18893,7 +18962,7 @@ parcelRequire = function(e, r, t, n) {
             }, {
                 key: "addAnnotations",
                 value: function() {
-                    this.ddG.attr("class", "dd-text").append("text").attr("x", this.xScale(19.25)).attr("y", this.yScale(.8)).attr("dx", window.innerWidth <= 600 ? 2.5 : 0).text("Train Error"), this.ddG.append("circle").attr("class", "dd-circle").attr("id", "dd-circle-train").attr("cx", this.xScale(19)).attr("cy", this.yScale(1.2)).attr("r", 5), this.ddG.attr("class", "dd-text").append("text").attr("x", this.xScale(19.25)).attr("y", this.yScale(2.4)).attr("dx", window.innerWidth <= 600 ? 2.5 : 0).text("Test Error"), this.ddG.append("circle").attr("class", "dd-circle").attr("id", "dd-circle-test").attr("cx", this.xScale(19)).attr("cy", this.yScale(2.3)).attr("r", 5), this.ddG.attr("class", "dd-text").append("text").attr("x", this.xScale(9.8)).attr("y", this.yScale(30.25)).text("Expected Test Error")
+                    this.ddG.attr("class", "dd-text").append("text").attr("x", this.xScale(19.25)).attr("y", this.yScale(.8)).attr("dx", window.innerWidth <= 600 ? 2.5 : 0).text("Error de Entrenamiento"), this.ddG.append("circle").attr("class", "dd-circle").attr("id", "dd-circle-train").attr("cx", this.xScale(19)).attr("cy", this.yScale(1.2)).attr("r", 5), this.ddG.attr("class", "dd-text").append("text").attr("x", this.xScale(19.25)).attr("y", this.yScale(2.4)).attr("dx", window.innerWidth <= 600 ? 2.5 : 0).text("Error de Prueba"), this.ddG.append("circle").attr("class", "dd-circle").attr("id", "dd-circle-test").attr("cx", this.xScale(19)).attr("cy", this.yScale(2.3)).attr("r", 5), this.ddG.attr("class", "dd-text").append("text").attr("x", this.xScale(9.8)).attr("y", this.yScale(30.25)).text("Error de Prueba Esperado")
                 }
             }]), s
         }();
