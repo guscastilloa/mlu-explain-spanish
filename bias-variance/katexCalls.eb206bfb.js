@@ -8728,15 +8728,15 @@ parcelRequire = function(e, r, t, n) {
                 default: e
             }
         }
-        e.default.render("\\mathrm{Error}(x) =  \\Big( \\mathbf{E}\\big[\\widehat{f}(x)\\big] - f(x) \\Big)^2 + \\mathbf{E}\\Big[\\Big(\\widehat{f}(x) -  \\mathbf{E}\\big[\\widehat{f}(x)\\big]\\Big)^2\\Big] + \\mathrm{Noise} ", document.querySelector(".katex-bv-equation"), {
+        e.default.render("\\mathrm{Error}(x) =  \\Big( \\mathbf{E}\\big[\\widehat{f}(x)\\big] - f(x) \\Big)^2 + \\mathbf{E}\\Big[\\Big(\\widehat{f}(x) -  \\mathbf{E}\\big[\\widehat{f}(x)\\big]\\Big)^2\\Big] + \\mathrm{Ruido} ", document.querySelector(".katex-bv-equation"), {
             throwOnError: !1
-        }), e.default.render("\\mathrm{Bias}^2(x) =  \\Big( \\mathbf{E}\\big[\\widehat{f}(x)\\big] - f(x) \\Big)^2", document.querySelector(".katex-bias"), {
+        }), e.default.render("\\mathrm{Sesgo}^2(x) =  \\Big( \\mathbf{E}\\big[\\widehat{f}(x)\\big] - f(x) \\Big)^2", document.querySelector(".katex-bias"), {
             throwOnError: !1
-        }), e.default.render("\\mathrm{Variance}(x) = \\mathbf{E}\\Big[\\Big(\\widehat{f}(x) -  \\mathbf{E}\\big[\\widehat{f}(x)\\big]\\Big)^2\\Big]", document.querySelector(".katex-var"), {
+        }), e.default.render("\\mathrm{Varianza}(x) = \\mathbf{E}\\Big[\\Big(\\widehat{f}(x) -  \\mathbf{E}\\big[\\widehat{f}(x)\\big]\\Big)^2\\Big]", document.querySelector(".katex-var"), {
             throwOnError: !1
         }), e.default.render("\\mathrm{Error} =  \\mathrm{Sesgo}^2 + \\mathrm{Varianza} + \\mathrm{Ruido}", document.querySelector(".katex-bv-text"), {
             throwOnError: !1
-        }), e.default.render("\\thinspace \\mathrm{Noise}", document.querySelector(".katex-noise"), {
+        }), e.default.render("\\thinspace \\mathrm{Ruido}", document.querySelector(".katex-noise"), {
             throwOnError: !1
         }), e.default.render("\\thinspace E[\\widehat{f}(x)]", document.querySelector(".katex-bias-inline"), {
             throwOnError: !1
