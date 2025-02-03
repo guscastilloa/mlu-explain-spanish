@@ -16581,7 +16581,7 @@ parcelRequire = function(e, r, t, n) {
                             return t.getBBox().width
                         },
                         r = this.scatterPlot.append("g").attr("class", "legend").attr("transform", "translate(0,0)"),
-                        n = r.selectAll("g").data(["Train Data", "Test Data"]).enter().append("g");
+                        n = r.selectAll("g").data(["Datos de Entrenamiento", "Datos de Prueba"]).enter().append("g");
                     n.append("circle").attr("class", "scatter-legend-circle").attr("r", 6).attr("fill", function(t, e) {
                         return e % 2 == 0 ? i.trainColorDot : i.testColorDot
                     }).attr("cy", -5).attr("cx", 1).attr("stroke-width", 0);
@@ -18266,6 +18266,7 @@ parcelRequire = function(e, r, t, n) {
         var t = function e(u) {
             var t = r.default.source(u);
 
+
             function a(e, r) {
                 var u = t(e),
                     a = t(r);
@@ -18716,7 +18717,7 @@ parcelRequire = function(e, r, t, n) {
                 key: "drawBars",
                 value: function() {
                     var t = this;
-                    this.barG = this.initChartSvg(this.barContainer), this.xScaleError = (0, r.scaleLinear)().domain([0, .25]).range([0, this.WIDTH]), this.yScaleError = (0, r.scaleBand)().domain(["Train", "Test"]).range([0, this.HEIGHT]).padding(.1), this.loessBarColor = (0, r.scaleOrdinal)().domain(["Test", "Train"]).range(["#e57873", "#94CAE0"]), this.xAxisGeneratorError = (0, e.axisBottom)(this.xScaleError).tickSizeOuter(0).ticks(4), this.yAxisGeneratorError = (0, e.axisLeft)(this.yScaleError).tickSizeOuter(0).ticks(4), this.xAxisError = this.barG.append("g").attr("class", "axis").attr("id", "bar-x-axis").call(this.xAxisGeneratorError).attr("transform", "translate(0, ".concat(this.HEIGHT, ")")), this.yAxis = this.barG.append("g").attr("class", "axis").attr("id", "bar-y-axis").call(this.yAxisGeneratorError), this.lineGenerator = (0, a.line)().x(function(e) {
+                    this.barG = this.initChartSvg(this.barContainer), this.xScaleError = (0, r.scaleLinear)().domain([0, .25]).range([0, this.WIDTH]), this.yScaleError = (0, r.scaleBand)().domain(["Train", "Test"]).range([0, this.HEIGHT]).padding(.1), this.loessBarColor = (0, r.scaleOrdinal)().domain(["Train", "Test"]).range(["#e57873", "#94CAE0"]), this.xAxisGeneratorError = (0, e.axisBottom)(this.xScaleError).tickSizeOuter(0).ticks(4), this.yAxisGeneratorError = (0, e.axisLeft)(this.yScaleError).tickSizeOuter(0).ticks(4), this.xAxisError = this.barG.append("g").attr("class", "axis").attr("id", "bar-x-axis").call(this.xAxisGeneratorError).attr("transform", "translate(0, ".concat(this.HEIGHT, ")")), this.yAxis = this.barG.append("g").attr("class", "axis").attr("id", "bar-y-axis").call(this.yAxisGeneratorError), this.lineGenerator = (0, a.line)().x(function(e) {
                         return t.xScale(e[0])
                     }).y(function(e) {
                         return t.yScale(e[1])
@@ -18796,10 +18797,10 @@ parcelRequire = function(e, r, t, n) {
                 value: function() {
                     var e = this,
                         r = (0, t.select)("#".concat(this.sliderContainer));
-                    r.append("h4").attr("id", "loess-text").html("Smoothness: ".concat(this.bandwidth.toFixed(2))), r.append("input").attr("id", "loess-slider").attr("class", "metric-slider").attr("type", "range").attr("min", .01).attr("max", 1).attr("step", .01).attr("value", .42), (0, t.selectAll)("#loess-slider").on("input", function(r) {
+                    r.append("h4").attr("id", "loess-text").html("Suavizado: ".concat(this.bandwidth.toFixed(2))), r.append("input").attr("id", "loess-slider").attr("class", "metric-slider").attr("type", "range").attr("min", .01).attr("max", 1).attr("step", .01).attr("value", .42), (0, t.selectAll)("#loess-slider").on("input", function(r) {
                         var a = (0, t.select)(this).property("value"),
                             s = Number(a);
-                        e.bandwidth = s, (0, t.select)("#loess-text").html("Smoothness: ".concat(e.bandwidth.toFixed(2))), e.drawLoessLine(e.bandwidth)
+                        e.bandwidth = s, (0, t.select)("#loess-text").html("Suavizado: ".concat(e.bandwidth.toFixed(2))), e.drawLoessLine(e.bandwidth)
                     })
                 }
             }, {
