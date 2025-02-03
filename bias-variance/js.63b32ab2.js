@@ -16340,7 +16340,7 @@ parcelRequire = function(e, r, t, n) {
                     this.underfitError = [{
                         name: "Train",
                         error: c
-                    }], this.errorBar.plotBars(this.underfitError), this.errorBar.addTitle("Mean-Squared Error")
+                    }], this.errorBar.plotBars(this.underfitError), this.errorBar.addTitle("Error Cuadrático Medio")
                 }
             }, {
                 key: "drawTestErrorOverfit",
@@ -19046,7 +19046,7 @@ parcelRequire = function(e, r, t, n) {
                         q(), (0, s.selectAll)(".errorLineComplex").remove(), T.drawLineOverfit(), T.drawBarsTrainOverfit()
                     },
                     4: function() {
-                        q(), (0, s.selectAll)("rect.stacked").remove(), (0, s.selectAll)(".decomp-text").remove(), (0, s.selectAll)("circle.test").transition().attr("r", 10), (0, s.select)("#regression-line-1").attr("visibility", "visible"), (0, s.selectAll)(".legend").attr("visibility", "visible"), T.errorBar.plotReverseDecompositionBar(), T.errorBar.addTitle("Mean-Squared Error"), T.drawBarsTestOverfit()
+                        q(), (0, s.selectAll)("rect.stacked").remove(), (0, s.selectAll)(".decomp-text").remove(), (0, s.selectAll)("circle.test").transition().attr("r", 10), (0, s.select)("#regression-line-1").attr("visibility", "visible"), (0, s.selectAll)(".legend").attr("visibility", "visible"), T.errorBar.plotReverseDecompositionBar(), T.errorBar.addTitle("Error Cuadrático Medio"), T.drawBarsTestOverfit()
                     },
                     5: function() {
                         T.addTitle(""), q(), T.transitionUp5()
