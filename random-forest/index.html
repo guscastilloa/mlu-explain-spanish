@@ -200,89 +200,103 @@
                </g>
             </g>
          </svg>
-         <p> Ensemble learning creates a stronger model by aggregating the predictions of multiple weak models, such as decision trees (check out our <a href="https://mlu-explain.github.io/decision-tree/">previous article on Decision Trees</a> to learn more about some of their limitations). Condorcet’s Jury Theorem suggests that the majority vote aggregation can have better accuracy than the individual models. There are other methods to aggregate predictions, such as weighted majority vote. </p>
+         <p>El aprendizaje en conjunto crea un modelo más fuerte al agregar las predicciones de múltiples modelos débiles (o <i>weak learners</i>), tales como árboles de decisión (revisa nuestro <a href="https://mlu-explain.github.io/decision-tree/">artículo sobre Árboles de Decisión</a> para aprender más sobre algunas de sus limitaciones). El teorema del Jurado de Condorcet sugiere que la agregación mediante voto mayoritario puede tener mejor precisión que los modelos individuales. Hay otros métodos para agregar predicciones, como el voto mayoritario ponderado. </p>
          <br> 
-         <p> Random Forest is an example of ensemble learning where each model is a decision tree. In the next section, we will build a random forest model to classify if a road sign is a pedestrian crossing sign or not. These signs come in many variations, and we will use four simple features: Size, number of sides, number of colors used, and if the sign has text or symbol. <br><br> We will start with a sampling method called the <span class="bold">Bagging Method</span> to create multiple samples from the training data to build each tree. </p>
+          <p> El Bosque Aleatorio es un ejemplo de aprendizaje en conjunto donde cada modelo es un árbol de decisión. En la siguiente sección, construiremos un modelo de bosque aleatorio para clasificar si una señal de tráfico es una señal de cruce peatonal o no. Estas señales vienen en muchas variaciones, y utilizaremos cuatro características simples: Tamaño, número de lados, número de colores utilizados y si la señal tiene texto o símbolo. <br><br> Comenzaremos con un método de muestreo llamado el <span class="bold">Método de Bagging</span> para crear múltiples muestras a partir de los datos de entrenamiento para construir cada árbol. </p>
       </section>
       <section id="random-forest">
-         <h2>Random Forest</h2>
+         <h2>Bosque Aleatorio</h2>
          <div id="scrolly-rf">
             <figure id="figure-rf">
                <svg id="chart-rf"></svg>
             </figure>
             <article id="article-rf">
                <section data-index="0" class="rf-scrolly">
-                  <h3>Bagging Method</h3>
-                  <p id="two_columns"> One way to produce multiple models that are different is to train each model using a different training set. The <span class="bold">Bagging (Bootstrap Aggregating) method</span> randomly draws a fixed number of samples from the training set with replacement. This means that a data point can be drawn more than once. </p>
+                  <h3>Método Bagging</h3>
+                    <p id="two_columns"> Una forma de producir múltiples modelos diferentes es entrenar cada modelo utilizando un conjunto de entrenamiento diferente. El <span class="bold">método Bagging (Bootstrap Aggregating)</span> selecciona aleatoriamente un número fijo de muestras del conjunto de entrenamiento con reemplazo. Esto significa que una observación (<i>data point</i>) puede ser seleccionado más de una vez. </p>
                </section>
                <section data-index="1" class="rf-scrolly">
-                  <p id="two_columns"> This results in several training sets that are different. Here, we have three samples. Notice that some data points are shared among some samples. Each sample then can be used to build a model. Let’s build some decision trees with these samples! </p>
+                    <p id="two_columns"> Esto da como resultado varios conjuntos de entrenamiento que son diferentes. Aquí, tenemos tres muestras. Observa que algunos puntos de datos se comparten entre algunas muestras. Cada muestra luego puede ser utilizada para construir un modelo. ¡Construyamos algunos árboles de decisión con estas muestras! </p>
                </section>
                <section data-index="2" class="rf-scrolly">
-                  <h3>Feature Selection</h3>
-                  <p id="two_columns"> Here are the features: Size, Number of Sides, Number of Colors Used, and Text or Symbol. <br><br> For each split of the tree building, we compute the best splitting using only a randomly selected subset of the features. This is another way to ensure that the decision trees are as different as possible. </p>
+                  <h3>Selección de Características</h3>
+                    <p id="two_columns"> Aquí están las características: Tamaño, Número de Lados, Número de Colores Utilizados y Texto o Símbolo. <br><br> Para cada división en la construcción del árbol, calculamos la mejor división utilizando solo un subconjunto seleccionado aleatoriamente de las características. Esta es otra forma de garantizar que los árboles de decisión sean lo más diferentes posible. </p>
                </section>
                <section data-index="3" class="rf-scrolly">
-                  <p id="two_columns"> Let's build the first tree with the first sample! For the first split, three features are selected to find the best split. </p>
+                  <p id="two columns">Construyamos el primer árbol con la primera muestra! Para la primera partición, tres predictores son seleccionados para encontrar la mejor partición.</p>
                </section>
                <section data-index="4" class="rf-scrolly">
                   <p id="two_columns"> The best feature to split is "Number of Colors used." </p>
+                  <p id="two_columns">El mejor predictor para la partición es "Número de Colores Utilizados" </p>
+
                </section>
                <section data-index="5" class="rf-scrolly">
                   <p id="two_columns"> Likewise, for the second split, another set of three features are selected to find the best split. The best feature to split this time is "Text or Symbol." </p>
+                  <p id="two_columns">Asimismo, para la segunda partición, otro conjunto de predictores son seleccionados para encontrar la mejor partición. El mejor predictor para la partición esta vez es "Texto o Símbolo"</p>
+
                </section>
                <section data-index="6" class="rf-scrolly">
-                  <p id="two_columns"> This process continues until the tree is constructed. The other samples will build other trees using the same process. </p>
+                  <p id="two_columns">Este proces continúa hasta que el árbol es construido. Las demás muestras construirán otros árboles usando el mismo proceso.</p>
                </section>
                <section data-index="7" class="rf-scrolly">
-                  <h3>Here are trees built from each sample.</h3>
-                  <p id="two_columns"> Notice how these trees are quite different from each other. <br><br>Let's bring some test data to see the random forest in action! </p>
+                  <h3>Aquí hay algunos árboles construidos a partir de cada muestra.</h3>
+                  <p id="two_columns"> Note cómo estos árboles son muy diferentes entre sí. <br><br>Traigamos unos datos de prueba para ver el bosque aleatorio en acción!</p>
                </section>
                <section data-index="8" class="rf-scrolly">
-                  <h3>Each tree produces a prediction.</h3>
-                  <p id="two_columns"> Can a small circular sign be a crossings sign? Let's ask the three trees! </p>
+                  <h3>Cada árbol produce una predicción</h3>
+                  <p id="two_columns">¿Puede una pequeña señal circular ser una señal de cruce? ¡Preguntémosle a los tres árboles!</p>
                </section>
                <section data-index="9" class="rf-scrolly">
-                  <h3>Majority vote</h3>
+                  <h3>Voto mayoritario</h3>
                   <p id="two_columns"> The first tree thinks that the sign is not a crossings sign. However, the other trees voted yes. By the majority vote, the prediction is "Yes"! </p>
+                  <p id="two_columns">El primer árbol dice que la señal no se trata de una señal de cruzar. Sin embargo, los otros tres votaron que sí. Por voto mayoritario, la predicción es "Sí"!</p>
                </section>
                <section data-index="10" class="rf-scrolly">
                   <h3>It's your turn</h3>
-                  <p id="two_columns"> Click the remaining data points to see how the random forest makes a prediction. <br><br> Did you notice that even though the trees produce the same prediction, the decision path - the reason why each thinks the sign is a crossing sign or not - is different from each other? This is good news: The random forest models perform better when the trees in the forest are different. Let's dive deep into this! </p>
+                  <h3>Es tu turno</h3>
+                    <p id="two_columns"> Haz clic en los puntos de datos restantes para ver cómo el bosque aleatorio hace una predicción. <br><br> ¿Notaste que aunque los árboles producen la misma predicción, el camino de decisión - la razón por la cual cada uno piensa que la señal es o no una señal de cruce - es diferente entre ellos? Esto es una buena noticia: Los modelos de bosque aleatorio funcionan mejor cuando los árboles en el bosque son diferentes. ¡Vamos a profundizar en esto! </p>
                </section>
             </article>
          </div>
       </section>
       <section id="barcode" class="one-column">
-         <h2>Variance in Composition</h2>
+         <h2>Varianza en la Composición</h2>
          <br> 
-         <p> We previously discussed <a href="https://mlu-explain.github.io/decision-tree/">how decision tree model suffers from high variance.</a> However, this variance among trees is employed in the random forest as a feature, not a bug. The inventor of the random forest model Leo Breiman says in his paper <i>"[o]ur results indicate that better (lower generalization error) random forests have lower correlation between classifiers and higher strength."</i> [Random Forest Article] <br><br> The high variance of the decision tree model can help keep the correlation among trees low. The Bagging Method as well as the Feature Selection are the key innovations to keep correlation low. <br><br> We've just shown how to construct random forests for a given dataset, but how different are our trees from one another in reality? To find out, we've trained a nine-tree random forest on our sign dataset and plotted it below. <br><br> The outer enclosing circle represents the random forest. Each inner circle represents a unique decision tree in the forest. Hovering over a tree will highlight the tree's classification accuracy, and its feature importances* for four features. </p>
+         <p> Anteriormente discutimos <a href="https://mlu-explain.github.io/decision-tree/">cómo el modelo de árbol de decisión sufre de alta varianza.</a> Sin embargo, esta varianza entre los árboles se emplea en el bosque aleatorio como una característica, no como un error. Leo Breiman, el inventor del modelo de bosque aleatorio dice en su artículo <i>"[n]uestros resultados indican que los mejores bosques aleatorios (con menor error de generalización) tienen menor correlación entre clasificadores y mayor fuerza."</i> [Artículo de Bosque Aleatorio] 
+            <br><br> 
+         La alta varianza del modelo de árbol de decisión puede ayudar a mantener baja la correlación entre los árboles. El Método de Bagging así como la seleccion de predictores (<i>feature selection</i>) son las innovaciones clave para mantener baja la correlación. 
+         <br><br> 
+         Acabamos de mostrar cómo construir bosques aleatorios para un conjunto de datos dado, pero ¿qué tan diferentes son nuestros árboles entre sí en realidad? Para averiguarlo, hemos entrenado un bosque aleatorio de nueve árboles en nuestro conjunto de datos de señalización de tránsito y lo hemos graficado a continuación. 
+         <br><br> 
+         El círculo exterior representa el bosque aleatorio. Cada círculo interior representa un árbol de decisión único en el bosque. Al pasar el cursor sobre un árbol se resaltará la precisión de clasificación del árbol y sus importancias de características* para cuatro características. </p>
          <div id="barcode-chart"></div>
          <br> <br><br> 
-         <p> Observe that each tree has a fairly unique combination of feature importances and accuracy and there is no obvious pattern. Some trees only use two out of four features, and the tree with similar feature importances as the random forest model still performs much worse than the forest. As discussed in Condorcet's theorem, the key takeaway is the power these models employ when aggregated together in a smart way, as shown by the random forest model having the highest accuracy. </p>
+         <p> Observa que cada árbol tiene una combinación bastante única de importancias de predictores y precisión, y no hay un patrón obvio. Algunos árboles solo usan dos de las cuatro características, y el árbol con importancias de características similares al modelo de bosque aleatorio aún tiene un rendimiento mucho peor que el bosque. Como se discutió en el teorema de Condorcet, la conclusión clave es el poder que estos modelos emplean cuando se agregan juntos de manera inteligente, como lo demuestra el modelo de bosque aleatorio que tiene la precisión más alta. </p>
          <br> 
-         <p> As expected, the random forest model (the red dots on the right) performs better than any individual tree. Notice the wide range of the feature importance scores across our trees, which can contribute to low correlation. In the very first random forest visualization tool developed by Breiman, he also attempted to show the range in feature importances. </p>
+         <p> Como era de esperar, el modelo de bosque aleatorio (los puntos rojos a la derecha) tiene un mejor rendimiento que cualquier árbol individual. Observa el amplio rango de los puntajes de importancia de características en nuestros árboles, lo que puede contribuir a una baja correlación. En la primera herramienta de visualización de bosque aleatorio desarrollada por Breiman, él también intentó mostrar el rango en las importancias de características. </p>
       </section>
       <section id="cantor-section" class="one-column">
-         <h2>Variance in Predictions</h2>
+         <h2>Varianza en las Predicciones</h2>
          <br> 
-         <p> If each tree produces the same prediction, then the accuracy can not improve. Below, each circle represents a prediction from a model. Circles in the same row share the same model, while circles in the same column share the same test data. Blue means "Yes" and pink means "No". Solid color means that the prediction is correct, while the strip means that the prediction is incorrect. Not all test data points are shown. </p>
+         <p> Si cada árbol produce la misma predicción, entonces la precisión no puede mejorar. A continuación, cada círculo representa una predicción de un modelo. Los círculos en la misma fila comparten el mismo modelo, mientras que los círculos en la misma columna comparten los mismos datos de prueba. Azul significa "Sí" y rosa significa "No". El color sólido significa que la predicción es correcta, mientras que la franja significa que la predicción es incorrecta. No se muestran todos los datos de prueba. </p>
          <div id="cantor-wrapper">
             <div id="chart-wrapper-cantor">
                <div class="chart" id="cantor-treegrid"></div>
                <div class="chart" id="cantor-scatter"></div>
             </div>
          </div>
-         <p> The irregular pattern in the grid shows how the trees are different in where they make mistakes. As expected, the random forest model performs the best overall even if there are trees with very low accuracy. Note that for the first data point (first column), there are still three trees with the correct prediction while the majority is incorrect. This inspired people to consider other methods, such as Boosting, which is very popular today. </p>
+         <p> El patrón irregular en la cuadrícula muestra cómo los árboles son diferentes en dónde cometen errores. Como era de esperar, el modelo de bosque aleatorio tiene el mejor rendimiento general incluso si hay árboles con muy baja precisión. Observa que para el primer dato (primera columna), todavía hay tres árboles con la predicción correcta mientras que la mayoría es incorrecta. Esto inspiró a la gente a considerar otros métodos, como el Boosting, que es muy popular hoy en día. </p>
       </section>
       <section id="conclusion" class="one-column">
-         <h2>Conclusion</h2>
-         <p> Random Forest models are a popular model for a large number of tasks. In short, it's a method to produce aggregated predictions using the predictions from several decision trees. The old theorem of Condorcet suggests that the majority vote from several weak models with more than 50% accuracy may do the trick. Later, Breiman came up with Bagging and Feature Selection that helps to keep correlation among the trees low which is a key to success. <br><br> There has been some theory built around the bias and variance of random forest model in relation to the trees that it has. Please check out this article on the bias-variance tradeoff to learn more about these concepts. </p>
-         <p> <br><br> Thanks for reading! To learn more about machine learning, check out our <a href="https://aws.amazon.com/machine-learning/mlu/">self-paced courses</a>, our <a href="https://www.youtube.com/channel/UC12LqyqTQYbXatYS9AA7Nuw">youtube videos</a>, and the <a href="https://d2l.ai/">Dive into Deep Learning</a> textbook. <br><br> If you have any comments or ideas related to MLU-Explain articles, feel free to reach out directly to <a href="https://hjyeon.github.io/">Jenny</a> or <a href="https://twitter.com/jdwlbr">Jared</a>. The code for this article is available <a href="https://github.com/aws-samples/aws-mlu-explain">here</a>. </p>
+         <h2>Conclusión</h2>
+         <p> Los modelos de Bosque Aleatorio son un modelo popular para una gran cantidad de tareas. En resumen, es un método para producir predicciones agregadas usando las predicciones de varios árboles de decisión. El antiguo teorema de Condorcet sugiere que el voto mayoritario de varios modelos débiles con más del 50% de precisión puede funcionar. Más tarde, Breiman desarrolló el Bagging y la Selección de Características/predictores (<i>feature selection</i>) que ayuda a mantener baja la correlación entre los árboles, lo cual es clave para el éxito.
+         <br><br>
+          Se ha desarrollado alguna teoría alrededor del sesgo y la varianza del modelo de bosque aleatorio en relación con los árboles que tiene. Consulta <a href="../bias-variance/">este artículo sobre el dilema entre sesgo y varianza</a> para aprender más sobre estos conceptos. </p>
+         <p> <br><br> ¡Gracias por leer! Para aprender más sobre machine learning, consulta nuestros <a href="https://aws.amazon.com/machine-learning/mlu/">cursos a tu propio ritmo</a>, nuestros <a href="https://www.youtube.com/channel/UC12LqyqTQYbXatYS9AA7Nuw">videos de YouTube</a>, y el libro de texto <a href="https://d2l.ai/">Inmersión en el Aprendizaje Profundo</a>. <br><br> Si tienes algún comentario o idea relacionada con los artículos de MLU-Explain, no dudes en contactar directamente con <a href="https://hjyeon.github.io/">Jenny</a> o <a href="https://twitter.com/jdwlbr">Jared</a>. El código para este artículo está disponible <a href="https://github.com/aws-samples/aws-mlu-explain">aquí</a>. </p>
       </section>
       <section id="resources">
-         <h1>Notes & Resources</h1>
-         <p> To make things more concise, some details were left out. Additionally, we went with Brieman's implementation using Scikit-Learn's <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html?highlight=randomforest#sklearn.ensemble.RandomForestClassifier">RandomForestClassifier.</a> <br><br> A special thanks goes out to Brent Werness for his valuable input for this article. <br><br> Additionally, this article is a product of the following resources + the awesome people who made (& contributed to) them: <br> <br> </p>
+         <h1>Notas y Recursos</h1>
+         <p> Para hacer las cosas más concisas, se omitieron algunos detalles. Además, utilizamos la implementación de Breiman usando el <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html?highlight=randomforest#sklearn.ensemble.RandomForestClassifier">RandomForestClassifier</a> de Scikit-Learn. <br><br> Un agradecimiento especial a Brent Werness por su valiosa contribución a este artículo. <br><br> Además, este artículo es producto de los siguientes recursos + las increíbles personas que los hicieron (y contribuyeron a ellos): <br> <br> </p>
          <p class="resource-item"> <a href="https://link.springer.com/article/10.1023/A:1010933404324">Random Forests</a><br> (Leo Breiman, 2001). </p>
          <p class="resource-item"> <a href="https://www.stat.berkeley.edu/~breiman/RandomForests/cc_graphics.htm">RAFT (RAndom Forest Tool)</a><br> (Leo Breiman; Adele Cutler). </p>
          <p class="resource-item"> <a href="http://gallica.bnf.fr/ark:/12148/bpt6k417181">Essai sur l'application de l'analyse à la probabilité des décisions rendues à la pluralité des voix </a><br> (Jean-Antoine-Nicolas de Caritat Condorcet, 1785). </p>
